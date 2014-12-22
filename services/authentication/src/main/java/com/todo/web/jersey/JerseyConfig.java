@@ -2,6 +2,7 @@ package com.todo.web.jersey;
 
 import com.todo.web.endpoint.AuthenticationEndpoint;
 import com.todo.web.endpoint.UserEndpoint;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,10 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         packages(getClass().getPackage().getName());
+
+        //enable Jackson for JSON
+        register(JacksonFeature.class);
+
         register(UserEndpoint.class);
         register(AuthenticationEndpoint.class);
     }

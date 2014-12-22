@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 public abstract class InvalidRequestExceptionProvider<T extends Throwable> implements ExceptionMapper<T> {
-    private final static Logger LOG = LoggerFactory.getLogger(BusinessExceptionProvider.class);
+    private final static Logger LOG = LoggerFactory.getLogger(InvalidRequestExceptionProvider.class);
 
     @Override
     public Response toResponse(T throwable) {
