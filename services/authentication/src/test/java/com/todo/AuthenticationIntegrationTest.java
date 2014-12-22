@@ -22,7 +22,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AuthenticationApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0", "management.port=0", "token.expire.inSeconds=10"})
 public class AuthenticationIntegrationTest {
@@ -52,7 +52,7 @@ public class AuthenticationIntegrationTest {
                 .contentType(ContentType.JSON)
                 .content("{}")
         .when()
-                .put("/user")
+                .post("/user")
         .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
@@ -66,7 +66,7 @@ public class AuthenticationIntegrationTest {
                 .contentType(ContentType.JSON)
                 .content(new LoginData("email@domain.com", "below8"))
         .when()
-                .put("/user")
+                .post("/user")
         .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
@@ -80,7 +80,7 @@ public class AuthenticationIntegrationTest {
                 .contentType(ContentType.JSON)
                 .content(new LoginData("email_domain_com", "above8signs"))
         .when()
-                .put("/user")
+                .post("/user")
         .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
@@ -90,15 +90,28 @@ public class AuthenticationIntegrationTest {
     @Test
     public void shouldCreateUserAccountLoginAndValidateToken() throws Exception {
         //create account
+        AuthToken authToken =
+            given()
+                    .accept(ContentType.JSON)
+                    .contentType(ContentType.JSON)
+                    .content(new LoginData("email@domain.com", "above8signs"))
+            .when()
+                    .post("/user")
+            .then()
+                    .statusCode(200)
+                    .body("token", not(isEmptyString()))
+                    .extract().as(AuthToken.class);
+
+        //validate token of new created account
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new LoginData("email@domain.com", "above8signs"))
+                .content(authToken)
         .when()
-                .put("/user")
+                .post("/authentication/validateToken")
         .then()
-                .statusCode(204)
-                .body(isEmptyString());
+                .statusCode(200)
+                .body("uid", not(isEmptyString()));
 
         //prevent duplicate account
         given()
@@ -106,14 +119,14 @@ public class AuthenticationIntegrationTest {
                 .contentType(ContentType.JSON)
                 .content(new LoginData("email@domain.com", "awerfgwgwbove8signs"))
         .when()
-                .put("/user")
+                .post("/user")
         .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
                 .body("errors", not(empty()));
 
-        //login
-        AuthToken authToken =
+        //login to get new token
+        authToken =
                 given()
                         .accept(ContentType.JSON)
                         .contentType(ContentType.JSON)
@@ -125,7 +138,7 @@ public class AuthenticationIntegrationTest {
                         .body("token", not(isEmptyString()))
                         .extract().as(AuthToken.class);
 
-        //validate
+        //validate token from login
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
