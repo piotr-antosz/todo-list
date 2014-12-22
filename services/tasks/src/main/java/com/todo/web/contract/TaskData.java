@@ -1,15 +1,17 @@
 package com.todo.web.contract;
 
-public class TaskData extends UpdateTaskData {
+import org.joda.time.DateTime;
+
+public class TaskData extends NewTaskData {
     private Integer id;
-    private String creationDate;
-    private String completionDate;
+    private DateTime creationDate;
+    private DateTime completionDate;
 
     public TaskData() {
     }
 
-    public TaskData(String description, Boolean completed, Integer id, String creationDate, String completionDate) {
-        super(description, completed);
+    TaskData(String description, Integer id, DateTime creationDate, DateTime completionDate) {
+        super(description);
         this.id = id;
         this.creationDate = creationDate;
         this.completionDate = completionDate;
@@ -19,11 +21,11 @@ public class TaskData extends UpdateTaskData {
         return id;
     }
 
-    public String getCreationDate() {
+    public DateTime getCreationDate() {
         return creationDate;
     }
 
-    public String getCompletionDate() {
+    public DateTime getCompletionDate() {
         return completionDate;
     }
 }

@@ -4,6 +4,7 @@ import com.todo.service.TaskService;
 import com.todo.web.contract.NewTaskData;
 import com.todo.web.contract.TaskData;
 import com.todo.web.contract.UpdateTaskData;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class TasksEndpoint {
     public TaskData addTask(
             @NotNull(message = "you have to specify new task data")
             @Valid NewTaskData newTaskData,
+            @NotBlank
             @HeaderParam("userId") String userId) {
         return taskService.createTask(userId, newTaskData);
     }
@@ -35,6 +37,7 @@ public class TasksEndpoint {
             @NotNull(message = "you have to specify task data to update")
             @Valid UpdateTaskData updateTaskData,
             @PathParam("taskId") int taskId,
+            @NotBlank
             @HeaderParam("userId") String userId) {
         return taskService.updateTask(userId, taskId, updateTaskData);
     }
@@ -43,12 +46,13 @@ public class TasksEndpoint {
     @Path("{taskId}")
     public TaskData getTask(
             @PathParam("taskId") int taskId,
+            @NotBlank
             @HeaderParam("userId") String userId) {
         return taskService.getTask(userId, taskId);
     }
 
     @GET
-    public List<TaskData> getTasks(@HeaderParam("userId") String userId) {
+    public List<TaskData> getTasks(@NotBlank @HeaderParam("userId") String userId) {
         return taskService.getTasks(userId);
     }
 
@@ -56,6 +60,7 @@ public class TasksEndpoint {
     @Path("{taskId}")
     public void addTask(
             @PathParam("taskId") int taskId,
+            @NotBlank
             @HeaderParam("userId") String userId) {
         taskService.deleteTask(userId, taskId);
     }
