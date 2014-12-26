@@ -1,0 +1,52 @@
+<a href="/#/login">Switch to login</a>
+<form ng-submit="createAccount(user)" name="createAccountForm" novalidate>
+    <p>
+        <span ng-show="createAccountError != null">{{createAccountError}}</span>
+    </p>
+
+    <p>
+        <label for="login">Login:</label>
+        <input type="login" name="login" id="login" ng-model="user.login" required>
+        <span ng-show="createAccountForm.$submitted || createAccountForm.login.$touched">
+            <span ng-show="createAccountForm.login.$error.required">Login is required</span>
+        </span>
+    </p>
+
+    <p>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" ng-model="user.email" required>
+        <span ng-show="createAccountForm.$submitted || createAccountForm.email.$touched">
+            <span ng-show="createAccountForm.email.$error.required">Email is required</span>
+            <span ng-show="createAccountForm.email.$error.email">Invalid email address</span>
+        </span>
+    </p>
+
+    <p>
+        <label for="confirmEmail">Confirm email:</label>
+        <input type="email" name="confirmEmail" id="confirmEmail" ng-model="confirmEmail" required data-match="user.email">
+        <span ng-show="createAccountForm.$submitted || createAccountForm.confirmEmail.$touched">
+            <span ng-show="createAccountForm.confirmEmail.$error.required">Confirm email is required</span>
+            <span ng-show="createAccountForm.confirmEmail.$error.email">Invalid confirm email address</span>
+            <span ng-show="createAccountForm.confirmEmail.$error.match">Email addresses must be the same</span>
+        </span>
+    </p>
+
+    <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" ng-model="user.password" required>
+        <span ng-show="createAccountForm.$submitted || createAccountForm.password.$touched">
+            <span ng-show="createAccountForm.password.$error.required">Password is required</span>
+        </span>
+    </p>
+
+    <p>
+        <label for="confirmPassword">Confirm password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" ng-model="confirmPassword" required data-match="user.password">
+        <span ng-show="createAccountForm.$submitted || createAccountForm.confirmPassword.$touched">
+            <span ng-show="createAccountForm.confirmPassword.$error.required">Confirm password is required</span>
+            <span ng-show="createAccountForm.confirmPassword.$error.match">Passwords must be the same</span>
+        </span>
+    </p>
+
+    <button type="submit" ng-disabled="createAccountForm.$invalid">Create account</button>
+</form>

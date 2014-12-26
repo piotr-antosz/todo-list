@@ -1,0 +1,25 @@
+<a href="/#/createAccount">Switch to create account</a>
+<form ng-submit="login(user)" name="loginForm">
+    <p>
+        <span ng-show="loginError != null">{{loginError}}</span>
+    </p>
+
+    <p>
+        <label for="login">Login:</label>
+        <input type="login" name="login" id="login" ng-model="user.login" required>
+        <span ng-show="loginForm.$submitted || loginForm.login.$touched">
+            <span ng-show="loginForm.login.$error.required">Login is required</span>
+        </span>
+    </p>
+
+    <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" data-ng-model="user.password" required>
+        <span ng-show="loginForm.$submitted || loginForm.password.$touched">
+            <span ng-show="loginForm.password.$error.required">Password is required</span>
+        </span>
+    </p>
+
+    <button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+    <button ng-click="successLogin()" ng-disabled="loginForm.$invalid">Login Success</button>
+</form>
