@@ -98,7 +98,7 @@ public class TasksIntegrationTest {
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .content(new NewTaskData("  "))
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .post("/tasks")
         .then()
@@ -141,7 +141,7 @@ public class TasksIntegrationTest {
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .content(new UpdateTaskData("  ", null))
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .put("/tasks/1")
         .then()
@@ -190,7 +190,7 @@ public class TasksIntegrationTest {
     public void shouldReturnResourceNotFoundWhenDeletingNotExistingTask() throws Exception {
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .delete("/tasks/1")
         .then()
@@ -203,7 +203,7 @@ public class TasksIntegrationTest {
     public void shouldReturnResourceNotFoundWhenGettingNotExistingTask() throws Exception {
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks/1")
         .then()
@@ -216,7 +216,7 @@ public class TasksIntegrationTest {
     public void shouldReturnResourceNotFoundWhenUpdatingNotExistingTask() throws Exception {
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
                 .contentType(ContentType.JSON)
                 .content(new UpdateTaskData("description", null))
         .when()
@@ -231,7 +231,7 @@ public class TasksIntegrationTest {
     public void shouldReturnEmptyTaskListWhenNoTaskExists() throws Exception {
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks")
         .then()
@@ -245,7 +245,7 @@ public class TasksIntegrationTest {
         //no tasks at the beginning
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks")
         .then()
@@ -260,7 +260,7 @@ public class TasksIntegrationTest {
         TaskData createdTaskData =
                 given()
                         .accept(ContentType.JSON)
-                        .header("userId", USER_ID)
+                        .header("X-User-Id", USER_ID)
                         .content(newTaskData)
                         .contentType(ContentType.JSON)
                 .when()
@@ -281,7 +281,7 @@ public class TasksIntegrationTest {
         TaskData getTaskData =
                 given()
                         .accept(ContentType.JSON)
-                        .header("userId", USER_ID)
+                        .header("X-User-Id", USER_ID)
                 .when()
                         .get("/tasks/" + createdTaskData.getId())
                 .then()
@@ -297,7 +297,7 @@ public class TasksIntegrationTest {
         //get tasks
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks")
         .then()
@@ -310,7 +310,7 @@ public class TasksIntegrationTest {
         TaskData updatedTaskData =
                 given()
                         .accept(ContentType.JSON)
-                        .header("userId", USER_ID)
+                        .header("X-User-Id", USER_ID)
                         .content(updateTaskData)
                         .contentType(ContentType.JSON)
                 .when()
@@ -331,7 +331,7 @@ public class TasksIntegrationTest {
         getTaskData =
                 given()
                         .accept(ContentType.JSON)
-                        .header("userId", USER_ID)
+                        .header("X-User-Id", USER_ID)
                 .when()
                         .get("/tasks/" + createdTaskData.getId())
                 .then()
@@ -347,7 +347,7 @@ public class TasksIntegrationTest {
         //get tasks
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks")
         .then()
@@ -358,7 +358,7 @@ public class TasksIntegrationTest {
         //delete task
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .delete("/tasks/" + createdTaskData.getId())
         .then()
@@ -368,7 +368,7 @@ public class TasksIntegrationTest {
         //get tasks
         given()
                 .accept(ContentType.JSON)
-                .header("userId", USER_ID)
+                .header("X-User-Id", USER_ID)
         .when()
                 .get("/tasks")
         .then()
