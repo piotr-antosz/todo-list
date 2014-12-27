@@ -1,52 +1,59 @@
-<a href="/#/login">Switch to login</a>
-<form ng-submit="createAccount(user)" name="createAccountForm" novalidate>
-    <p>
-        <span ng-show="createAccountError != null">{{createAccountError}}</span>
-    </p>
+<div class="col-xs-4">
+    <div class="pull-right">
+        <a href="/#/login">Switch to login</a>
+    </div>
+    <div class="clearfix"></div>
+    <form ng-submit="createAccount(user)" name="accountForm" novalidate>
+        <div class="form-group has-error" ng-show="createAccountError != null">
+            <span class="help-block">{{createAccountError}}</span>
+        </div>
 
-    <p>
-        <label for="login">Login:</label>
-        <input type="login" name="login" id="login" ng-model="user.login" required>
-        <span ng-show="createAccountForm.$submitted || createAccountForm.login.$touched">
-            <span ng-show="createAccountForm.login.$error.required">Login is required</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': accountForm.login.$invalid && (accountForm.$submitted || accountForm.login.$touched)}">
+            <label for="login">Login</label>
+            <input type="login" name="login" id="login" class="form-control" ng-model="user.login" placeholder="Login" required>
+            <span class="help-block" ng-show="accountForm.$submitted || accountForm.login.$touched">
+                <span ng-show="accountForm.login.$error.required">Login is required</span>
+            </span>
+        </div>
 
-    <p>
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" ng-model="user.email" required>
-        <span ng-show="createAccountForm.$submitted || createAccountForm.email.$touched">
-            <span ng-show="createAccountForm.email.$error.required">Email is required</span>
-            <span ng-show="createAccountForm.email.$error.email">Invalid email address</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': accountForm.email.$invalid && (accountForm.$submitted || accountForm.email.$touched)}">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" ng-model="user.email" placeholder="Email" required>
+            <span class="help-block" ng-show="accountForm.$submitted || accountForm.email.$touched">
+                <span ng-show="accountForm.email.$error.required">Email is required</span>
+                <span ng-show="accountForm.email.$error.email">Invalid email address</span>
+            </span>
+        </div>
 
-    <p>
-        <label for="confirmEmail">Confirm email:</label>
-        <input type="email" name="confirmEmail" id="confirmEmail" ng-model="confirmEmail" required data-match="user.email">
-        <span ng-show="createAccountForm.$submitted || createAccountForm.confirmEmail.$touched">
-            <span ng-show="createAccountForm.confirmEmail.$error.required">Confirm email is required</span>
-            <span ng-show="createAccountForm.confirmEmail.$error.email">Invalid confirm email address</span>
-            <span ng-show="createAccountForm.confirmEmail.$error.match">Email addresses must be the same</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': accountForm.confirmEmail.$invalid && (accountForm.$submitted || accountForm.confirmEmail.$touched)}">
+            <label for="confirmEmail">Confirm email</label>
+            <input type="email" name="confirmEmail" id="confirmEmail" class="form-control" ng-model="confirmEmail" placeholder="Confirm email" required data-match="user.email">
+            <span class="help-block" ng-show="accountForm.$submitted || accountForm.confirmEmail.$touched">
+                <span ng-show="accountForm.confirmEmail.$error.required">Confirm email is required</span>
+                <span ng-show="accountForm.confirmEmail.$error.email">Invalid confirm email address</span>
+                <span ng-show="accountForm.confirmEmail.$error.match">Email addresses must be the same</span>
+            </span>
+        </div>
 
-    <p>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" ng-model="user.password" required>
-        <span ng-show="createAccountForm.$submitted || createAccountForm.password.$touched">
-            <span ng-show="createAccountForm.password.$error.required">Password is required</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': accountForm.password.$invalid && (accountForm.$submitted || accountForm.password.$touched)}">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="user.password" placeholder="Password" required>
+            <span class="help-block" ng-show="accountForm.$submitted || accountForm.password.$touched">
+                <span ng-show="accountForm.password.$error.required">Password is required</span>
+            </span>
+        </div>
 
-    <p>
-        <label for="confirmPassword">Confirm password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" ng-model="confirmPassword" required data-match="user.password">
-        <span ng-show="createAccountForm.$submitted || createAccountForm.confirmPassword.$touched">
-            <span ng-show="createAccountForm.confirmPassword.$error.required">Confirm password is required</span>
-            <span ng-show="createAccountForm.confirmPassword.$error.match">Passwords must be the same</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': accountForm.confirmPassword.$invalid && (accountForm.$submitted || accountForm.confirmPassword.$touched)}">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="confirmPassword" placeholder="Confirm password" required data-match="user.password">
+            <span class="help-block" ng-show="accountForm.$submitted || accountForm.confirmPassword.$touched">
+                <span ng-show="accountForm.confirmPassword.$error.required">Confirm password is required</span>
+                <span ng-show="accountForm.confirmPassword.$error.match">Passwords must be the same</span>
+            </span>
+        </div>
 
-    <button type="submit" ng-disabled="createAccountForm.$invalid">Create account</button>
-</form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$invalid">Create account</button>
+        </div>
+    </form>
+</div>

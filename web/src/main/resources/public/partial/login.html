@@ -1,25 +1,32 @@
-<a href="/#/createAccount">Switch to create account</a>
-<form ng-submit="login(user)" name="loginForm">
-    <p>
-        <span ng-show="loginError != null">{{loginError}}</span>
-    </p>
+<div class="col-xs-4">
+    <div class="pull-right">
+        <a href="/#/createAccount">Switch to create account</a>
+    </div>
+    <div class="clearfix"></div>
+    <form ng-submit="login(user)" name="loginForm">
+        <div class="form-group has-error" ng-show="loginError != null">
+            <span class="help-block">{{loginError}}</span>
+        </div>
 
-    <p>
-        <label for="login">Login:</label>
-        <input type="login" name="login" id="login" ng-model="user.login" required>
-        <span ng-show="loginForm.$submitted || loginForm.login.$touched">
-            <span ng-show="loginForm.login.$error.required">Login is required</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': loginForm.login.$invalid && (loginForm.$submitted || loginForm.login.$touched)}">
+            <label for="login">Login</label>
+            <input type="login" name="login" id="login" class="form-control" ng-model="user.login" placeholder="Login" required>
+            <span class="help-block" ng-show="loginForm.$submitted || loginForm.login.$touched">
+                <span ng-show="loginForm.login.$error.required">Login is required</span>
+            </span>
+        </div>
 
-    <p>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" data-ng-model="user.password" required>
-        <span ng-show="loginForm.$submitted || loginForm.password.$touched">
-            <span ng-show="loginForm.password.$error.required">Password is required</span>
-        </span>
-    </p>
+        <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && (loginForm.$submitted || loginForm.password.$touched)}">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" data-ng-model="user.password" placeholder="Password" required>
+            <span class="help-block" ng-show="loginForm.$submitted || loginForm.password.$touched">
+                <span ng-show="loginForm.password.$error.required">Password is required</span>
+            </span>
+        </div>
 
-    <button type="submit" ng-disabled="loginForm.$invalid">Login</button>
-    <button ng-click="successLogin()" ng-disabled="loginForm.$invalid">Login Success</button>
-</form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
+            <button class="btn btn-primary" ng-click="successLogin()" ng-disabled="loginForm.$invalid">Login Success</button>
+        </div>
+    </form>
+</div>
