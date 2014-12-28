@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userRepository.findByLoginAndPassword(login, password);
         if (user != null) {
             Token token = new Token(DateTimeUtils.currentTimeMillis(), user);
-            LOG.info("creating token for user {}", user.getEmail());
+            LOG.info("creating token for user {}", user.getLogin());
             token = tokenRepository.saveAndFlush(token);
             return token.getValue();
         }
@@ -46,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (lastUsage.plusSeconds(tokenExpireInSeconds).isAfter(LocalDateTime.now())) {
             token.setLastUsage(DateTimeUtils.currentTimeMillis());
             User user = token.getUser();
-            LOG.info("updating token last usage for user {}", user.getEmail());
+            LOG.info("updating token last usage for user {}", user.getLogin());
             tokenRepository.saveAndFlush(token);
             return user.getUserId();
         } else {
