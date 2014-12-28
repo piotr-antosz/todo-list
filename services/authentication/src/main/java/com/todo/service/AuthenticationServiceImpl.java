@@ -25,7 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String createToken(String login, String password) {
-        User user = userRepository.findByEmailAndPassword(login, password);
+        User user = userRepository.findByLoginAndPassword(login, password);
         if (user != null) {
             Token token = new Token(DateTimeUtils.currentTimeMillis(), user);
             LOG.info("creating token for user {}", user.getEmail());

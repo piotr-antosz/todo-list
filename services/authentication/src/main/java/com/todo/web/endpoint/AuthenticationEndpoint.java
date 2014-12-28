@@ -33,7 +33,7 @@ public class AuthenticationEndpoint {
     @POST
     @Path("/login")
     public AuthToken login(@NotNull(message = "you have to specify login data") @Valid LoginData loginData) {
-        String token = authenticationService.createToken(loginData.getEmail(), loginData.getPassword());
+        String token = authenticationService.createToken(loginData.getLogin(), loginData.getPassword());
         return new AuthToken(token);
     }
 }

@@ -1,14 +1,14 @@
 package com.todo.web.contract;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
 
 public class LoginData {
 
-    @Email(message = "incorrect email format")
-    private String email;
+    @NotBlank(message = "login may not be blank")
+    @Size(min = 8, message = "login has to contain min 8 signs")
+    private String login;
 
     @NotBlank(message = "password may not be blank")
     @Size(min = 8, message = "password has to contain min 8 signs")
@@ -17,13 +17,13 @@ public class LoginData {
     public LoginData() {
     }
 
-    public LoginData(String email, String password) {
-        this.email = email;
+    public LoginData(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
     public String getPassword() {

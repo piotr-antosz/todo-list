@@ -19,12 +19,16 @@ public class User implements Serializable {
     private String userId;
 
     @Column(nullable = false, unique = true)
+    private String login;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    public User(String email, String password) {
+    public User(String login, String email, String password) {
+        this.login = login;
         this.email = email;
         this.password = password;
     }
@@ -34,6 +38,10 @@ public class User implements Serializable {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getEmail() {

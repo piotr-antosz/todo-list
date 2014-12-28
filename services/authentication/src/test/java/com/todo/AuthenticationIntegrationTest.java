@@ -6,6 +6,7 @@ import com.todo.repository.TokenRepository;
 import com.todo.repository.UserRepository;
 import com.todo.web.contract.AuthToken;
 import com.todo.web.contract.LoginData;
+import com.todo.web.contract.NewUserData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +65,7 @@ public class AuthenticationIntegrationTest {
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new LoginData("email@domain.com", "below8"))
+                .content(new NewUserData("loginLongEnough", "email@domain.com", "below8"))
         .when()
                 .post("/user")
         .then()
@@ -78,10 +79,24 @@ public class AuthenticationIntegrationTest {
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new LoginData("email_domain_com", "above8signs"))
+                .content(new NewUserData("loginLongEnough", "email_domain_com", "above8signs"))
         .when()
                 .post("/user")
         .then()
+                .statusCode(422)
+                .contentType(ContentType.JSON)
+                .body("errors", not(empty()));
+    }
+
+    @Test
+    public void shouldFailCreatingUserWhenLoginIncorrect() throws Exception {
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new NewUserData("below8", "email@domain.com", "above8signs"))
+                .when()
+                .post("/user")
+                .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
                 .body("errors", not(empty()));
@@ -94,7 +109,7 @@ public class AuthenticationIntegrationTest {
             given()
                     .accept(ContentType.JSON)
                     .contentType(ContentType.JSON)
-                    .content(new LoginData("email@domain.com", "above8signs"))
+                    .content(new NewUserData("loginLongEnough", "email@domain.com", "above8signs"))
             .when()
                     .post("/user")
             .then()
@@ -113,14 +128,26 @@ public class AuthenticationIntegrationTest {
                 .statusCode(200)
                 .body("uid", not(isEmptyString()));
 
-        //prevent duplicate account
+        //prevent duplicate login account
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new LoginData("email@domain.com", "awerfgwgwbove8signs"))
+                .content(new NewUserData("loginLongEnough", "email2@domain.com", "awerfgwgwbove8signs"))
         .when()
                 .post("/user")
         .then()
+                .statusCode(422)
+                .contentType(ContentType.JSON)
+                .body("errors", not(empty()));
+
+        //prevent duplicate email account
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new NewUserData("loginLongEnough2", "email@domain.com", "awerfgwgwbove8signs"))
+                .when()
+                .post("/user")
+                .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
                 .body("errors", not(empty()));
@@ -130,7 +157,7 @@ public class AuthenticationIntegrationTest {
                 given()
                         .accept(ContentType.JSON)
                         .contentType(ContentType.JSON)
-                        .content(new LoginData("email@domain.com", "above8signs"))
+                        .content(new LoginData("loginLongEnough", "above8signs"))
                 .when()
                         .post("/authentication/login")
                 .then()
@@ -192,11 +219,11 @@ public class AuthenticationIntegrationTest {
     }
 
     @Test
-    public void shouldFailLoggingWhenEmailIncorrect() throws Exception {
+    public void shouldFailLoggingWhenLoginIncorrect() throws Exception {
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new LoginData("email_domain_com", "above8signs"))
+                .content(new LoginData("below8", "above8signs"))
         .when()
                 .post("/authentication/login")
         .then()
