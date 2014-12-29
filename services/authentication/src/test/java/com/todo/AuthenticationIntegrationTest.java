@@ -93,7 +93,7 @@ public class AuthenticationIntegrationTest {
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .content(new NewUserData("below8", "email@domain.com", "above8signs"))
+                .content(new NewUserData("lg", "email@domain.com", "above8signs"))
                 .when()
                 .post("/user")
                 .then()

@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 public class LoginData {
 
     @NotBlank(message = "login may not be blank")
-    @Size(min = 8, message = "login has to contain min 8 signs")
+    @Size(min = 4, message = "login has to contain min 8 signs")
     private String login;
 
     @NotBlank(message = "password may not be blank")
