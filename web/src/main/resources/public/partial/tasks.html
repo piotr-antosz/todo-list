@@ -1,51 +1,59 @@
-<div class="pull-right">
-    <button type="button" class="btn btn-link" onclick="logout()">Logout</button>
-</div>
-<h2>TODO list</h2>
-<h3>
-    <small>{{remaining()}} of {{tasks.length}} remaining</small>
-</h3>
-<div class="has-error" ng-show="tasksError != null">
-    <span class="help-block">{{tasksError}}</span>
-</div>
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th></th>
-        <th>Creation date</th>
-        <th>Completion date</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="task in tasks">
-        <td>
-            <label ng-class="{'completed': task.completionDate != null}">
-                <input type="checkbox" ng-checked="task.completionDate != null" ng-click="markDone(task)">
-                {{task.description}}
-            </label>
-        </td>
-        <td>
-            {{task.creationDate}}
-        </td>
-        <td>
-            {{task.completionDate}}
-        </td>
-        <td>
-            <button type="button" class="close" aria-label="Close" ng-click="delete(task, $index)"><span
-                    aria-hidden="true">&times;</span></button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<form class="form-inline" ng-submit="addTask()" name="taskForm" novalidate>
-    <div class="form-group">
-        <input type="text" name="description" id="description" class="form-control" ng-model="description"
-               placeholder="add new task here" required>
+<div class="row">
+    <div class="pull-right">
+        <button type="button" class="btn btn-link" onclick="logout()">Logout</button>
     </div>
-    <div class="form-group">
-        <button id="addButton" type="submit" class="btn btn-primary" ng-disabled="taskForm.$invalid"
-                data-loading-text="Adding..." autocomplete="off">Add
-        </button>
+    <div class="clearfix"></div>
+</div>
+<div class="row">
+    <div class="center-block">
+        <h2>TODO list</h2>
+
+        <h3>
+            <small>{{remaining()}} of {{tasks.length}} remaining</small>
+        </h3>
+        <div class="has-error" ng-show="tasksError != null">
+            <span class="help-block">{{tasksError}}</span>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Creation date</th>
+                <th>Completion date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="task in tasks">
+                <td>
+                    <label ng-class="{'completed': task.completionDate != null}">
+                        <input type="checkbox" ng-checked="task.completionDate != null" ng-click="markDone(task)">
+                        {{task.description}}
+                    </label>
+                </td>
+                <td>
+                    {{task.creationDate | date:"MM/dd/yyyy 'at' h:mma"}}
+                </td>
+                <td>
+                    {{task.completionDate | date:"MM/dd/yyyy 'at' h:mma"}}
+                </td>
+                <td>
+                    <button type="button" class="close" aria-label="Close" ng-click="delete(task, $index)"><span
+                            aria-hidden="true">&times;</span></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form class="form-inline" ng-submit="addTask()" name="taskForm" novalidate>
+            <div class="form-group">
+                <input type="text" name="description" id="description" class="form-control" ng-model="description"
+                       placeholder="add new task here" required>
+            </div>
+            <div class="form-group">
+                <button id="addButton" type="submit" class="btn btn-primary" ng-disabled="taskForm.$invalid"
+                        data-loading-text="Adding..." autocomplete="off">Add
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</div>

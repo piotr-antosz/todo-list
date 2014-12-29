@@ -1,69 +1,98 @@
-<div class="col-xs-4">
+<div class="row">
     <div class="pull-right">
         <a href="/#/login">Switch to login</a>
     </div>
     <div class="clearfix"></div>
-    <form ng-submit="createAccount(user)" name="accountForm" novalidate>
-        <div class="form-group has-error" ng-show="createAccountError != null">
+</div>
+<div class="row">
+    <div class="center-block">
+        <h2>Create account</h2>
+
+        <div class="has-error" ng-show="createAccountError != null">
             <span class="help-block">{{createAccountError}}</span>
         </div>
+        <form class="form-horizontal" ng-submit="createAccount(user)" name="accountForm" novalidate>
+            <div class="form-group"
+                 ng-class="{'has-error': accountForm.login.$invalid && (accountForm.login.$touched)}">
+                <label for="login" class="col-sm-4 control-label">Login</label>
 
-        <div class="form-group" ng-class="{'has-error': accountForm.login.$invalid && (accountForm.login.$touched)}">
-            <label for="login">Login</label>
-            <input type="login" name="login" id="login" class="form-control" ng-model="user.login" placeholder="Login"
-                   required>
-            <span class="help-block" ng-show="accountForm.login.$touched">
-                <span ng-show="accountForm.login.$error.required">Login is required</span>
-            </span>
-        </div>
+                <div class="col-sm-4">
+                    <input type="login" name="login" id="login" class="form-control" ng-model="user.login"
+                           placeholder="Login"
+                           ng-minlength="4" required>
+                <span class="help-block" ng-show="accountForm.login.$touched">
+                    <span ng-show="accountForm.login.$error.required">Login is required</span>
+                    <span ng-show="accountForm.login.$error.minlength">Login should have min 4 signs</span>
+                </span>
+                </div>
+            </div>
 
-        <div class="form-group" ng-class="{'has-error': accountForm.email.$invalid && (accountForm.email.$touched)}">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" ng-model="user.email" placeholder="Email"
-                   required>
-            <span class="help-block" ng-show="accountForm.email.$touched">
-                <span ng-show="accountForm.email.$error.required">Email is required</span>
-                <span ng-show="accountForm.email.$error.email">Invalid email address</span>
-            </span>
-        </div>
+            <div class="form-group"
+                 ng-class="{'has-error': accountForm.email.$invalid && (accountForm.email.$touched)}">
+                <label for="email" class="col-sm-4 control-label">Email</label>
 
-        <div class="form-group"
-             ng-class="{'has-error': accountForm.confirmEmail.$invalid && (accountForm.confirmEmail.$touched)}">
-            <label for="confirmEmail">Confirm email</label>
-            <input type="email" name="confirmEmail" id="confirmEmail" class="form-control" ng-model="confirmEmail"
-                   placeholder="Confirm email" required data-match="user.email">
-            <span class="help-block" ng-show="accountForm.confirmEmail.$touched">
-                <span ng-show="accountForm.confirmEmail.$error.required">Confirm email is required</span>
-                <span ng-show="accountForm.confirmEmail.$error.email">Invalid confirm email address</span>
-                <span ng-show="accountForm.confirmEmail.$error.match">Email addresses must be the same</span>
-            </span>
-        </div>
+                <div class="col-sm-4">
+                    <input type="email" name="email" id="email" class="form-control" ng-model="user.email"
+                           placeholder="Email"
+                           required>
+                <span class="help-block" ng-show="accountForm.email.$touched">
+                    <span ng-show="accountForm.email.$error.required">Email is required</span>
+                    <span ng-show="accountForm.email.$error.email">Invalid email address</span>
+                </span>
+                </div>
+            </div>
 
-        <div class="form-group"
-             ng-class="{'has-error': accountForm.password.$invalid && (accountForm.password.$touched)}">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="password"
-                   placeholder="Password" required>
-            <span class="help-block" ng-show="accountForm.password.$touched">
-                <span ng-show="accountForm.password.$error.required">Password is required</span>
-            </span>
-        </div>
+            <div class="form-group"
+                 ng-class="{'has-error': accountForm.confirmEmail.$invalid && (accountForm.confirmEmail.$touched)}">
+                <label for="confirmEmail" class="col-sm-4 control-label">Confirm email</label>
 
-        <div class="form-group"
-             ng-class="{'has-error': accountForm.confirmPassword.$invalid && (accountForm.confirmPassword.$touched)}">
-            <label for="confirmPassword">Confirm password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
-                   ng-model="confirmPassword" placeholder="Confirm password" required data-match="password">
-            <span class="help-block" ng-show="accountForm.confirmPassword.$touched">
-                <span ng-show="accountForm.confirmPassword.$error.required">Confirm password is required</span>
-                <span ng-show="accountForm.confirmPassword.$error.match">Passwords must be the same</span>
-            </span>
-        </div>
+                <div class="col-sm-4">
+                    <input type="email" name="confirmEmail" id="confirmEmail" class="form-control"
+                           ng-model="confirmEmail"
+                           placeholder="Confirm email" required data-match="user.email">
+                <span class="help-block" ng-show="accountForm.confirmEmail.$touched">
+                    <span ng-show="accountForm.confirmEmail.$error.required">Confirm email is required</span>
+                    <span ng-show="accountForm.confirmEmail.$error.email">Invalid confirm email address</span>
+                    <span ng-show="accountForm.confirmEmail.$error.match">Email addresses must be the same</span>
+                </span>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <button type="submit" id="accountButton" class="btn btn-primary" ng-disabled="accountForm.$invalid"
-                    data-loading-text="Creating..." autocomplete="off">Create account
-            </button>
-        </div>
-    </form>
+            <div class="form-group"
+                 ng-class="{'has-error': accountForm.password.$invalid && (accountForm.password.$touched)}">
+                <label for="password" class="col-sm-4 control-label">Password</label>
+
+                <div class="col-sm-4">
+                    <input type="password" name="password" id="password" class="form-control" ng-model="password"
+                           placeholder="Password" ng-minlength="6" required>
+                <span class="help-block" ng-show="accountForm.password.$touched">
+                    <span ng-show="accountForm.password.$error.required">Password is required</span>
+                    <span ng-show="accountForm.password.$error.minlength">Password should have min 6 signs</span>
+                </span>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{'has-error': accountForm.confirmPassword.$invalid && (accountForm.confirmPassword.$touched)}">
+                <label for="confirmPassword" class="col-sm-4 control-label">Confirm password</label>
+
+                <div class="col-sm-4">
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+                           ng-model="confirmPassword" placeholder="Confirm password" required data-match="password">
+                <span class="help-block" ng-show="accountForm.confirmPassword.$touched">
+                    <span ng-show="accountForm.confirmPassword.$error.required">Confirm password is required</span>
+                    <span ng-show="accountForm.confirmPassword.$error.match">Passwords must be the same</span>
+                </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="submit" id="accountButton" class="btn btn-primary" ng-disabled="accountForm.$invalid"
+                            data-loading-text="Creating..." autocomplete="off">Create account
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

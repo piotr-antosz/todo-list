@@ -69,7 +69,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
             $('#loginButton').button('loading');
             delete $scope.loginError;
             user.password = CryptoJS.SHA256($scope.password).toString(CryptoJS.enc.Hex);
-            $http.post('https://localhost:8443/api/v1/authentication', user)
+            $http.post(APIConfig.authentication, user)
                 .success(function (data) {
                     $window.sessionStorage.setItem('token', data.token);
                     $location.path('/');
@@ -86,7 +86,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
             $('#accountButton').button('loading');
             delete $scope.createAccountError;
             user.password = CryptoJS.SHA256($scope.password).toString(CryptoJS.enc.Hex);
-            $http.post('https://localhost:8443/api/v1/user', user)
+            $http.post(APIConfig.user, user)
                 .success(function (data) {
                     $window.sessionStorage.setItem('token', data.token);
                     $location.path('/');
@@ -100,7 +100,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
 
     .controller('TasksCtrl', ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
         $scope.tasks = [];
-        $http.get('https://localhost:8443/api/v1/tasks')
+        $http.get(APIConfig.tasks)
             .success(function (data) {
                 if (angular.isArray(data)) {
                     angular.forEach(data, function (task) {
@@ -119,7 +119,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
             };
             delete $scope.tasksError;
             delete $scope.description;
-            $http.post('https://localhost:8443/api/v1/tasks', newTask)
+            $http.post(APIConfig.tasks, newTask)
                 .success(function (data) {
                     $scope.tasks.push(data);
                     $('#addButton').button('reset');
@@ -136,7 +136,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
                 completed: null == task.completionDate
             };
             delete $scope.tasksError;
-            $http.put('https://localhost:8443/api/v1/tasks/' + task.id, updateTask)
+            $http.put(APIConfig.tasks + '/' + task.id, updateTask)
                 .success(function (data) {
                     task.completionDate = data.completionDate;
                 })
@@ -147,7 +147,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
 
         $scope.delete = function (task, index) {
             delete $scope.tasksError;
-            $http.delete('https://localhost:8443/api/v1/tasks/' + task.id)
+            $http.delete(APIConfig.tasks + '/' + task.id)
                 .success(function () {
                     $scope.tasks.splice(index, 1);
                 })
