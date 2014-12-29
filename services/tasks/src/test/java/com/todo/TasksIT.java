@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
 @SpringApplicationConfiguration(classes = TasksApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0", "management.port=0"})
-public class TasksIntegrationTest {
+public class TasksIT {
     private final String USER_ID = "d23d23d-d23f34g-g43g-43-g34-g34g";
 
     @Autowired

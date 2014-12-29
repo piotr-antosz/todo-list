@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.*;
 @SpringApplicationConfiguration(classes = AuthenticationApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0", "management.port=0", "token.expire.inSeconds=10"})
-public class AuthenticationIntegrationTest {
+public class AuthenticationIT {
     @Autowired
     private UserRepository userRepository;
     @Autowired
