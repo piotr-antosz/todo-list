@@ -3,30 +3,33 @@
         <a href="/#/createAccount">Switch to create account</a>
     </div>
     <div class="clearfix"></div>
-    <form ng-submit="login(user)" name="loginForm">
+    <form ng-submit="login(user)" name="loginForm" novalidate>
         <div class="form-group has-error" ng-show="loginError != null">
             <span class="help-block">{{loginError}}</span>
         </div>
 
-        <div class="form-group" ng-class="{'has-error': loginForm.login.$invalid && (loginForm.$submitted || loginForm.login.$touched)}">
+        <div class="form-group" ng-class="{'has-error': loginForm.login.$invalid && (loginForm.login.$touched)}">
             <label for="login">Login</label>
-            <input type="login" name="login" id="login" class="form-control" ng-model="user.login" placeholder="Login" required>
-            <span class="help-block" ng-show="loginForm.$submitted || loginForm.login.$touched">
+            <input type="login" name="login" id="login" class="form-control" ng-model="user.login" placeholder="Login"
+                   required>
+            <span class="help-block" ng-show="loginForm.login.$touched">
                 <span ng-show="loginForm.login.$error.required">Login is required</span>
             </span>
         </div>
 
-        <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && (loginForm.$submitted || loginForm.password.$touched)}">
+        <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && (loginForm.password.$touched)}">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" data-ng-model="user.password" placeholder="Password" required>
-            <span class="help-block" ng-show="loginForm.$submitted || loginForm.password.$touched">
+            <input type="password" name="password" id="password" class="form-control" data-ng-model="password"
+                   placeholder="Password" required>
+            <span class="help-block" ng-show="loginForm.password.$touched">
                 <span ng-show="loginForm.password.$error.required">Password is required</span>
             </span>
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
-            <button class="btn btn-primary" ng-click="successLogin()" ng-disabled="loginForm.$invalid">Login Success</button>
+            <button type="submit" id="loginButton" class="btn btn-primary" ng-disabled="loginForm.$invalid"
+                    data-loading-text="Logging..." autocomplete="off">Login
+            </button>
         </div>
     </form>
 </div>
