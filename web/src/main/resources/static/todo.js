@@ -2,7 +2,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
     .run(function ($rootScope, $window, $location, $http) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
             if (next.access) {
-                var userAuthenticated = $window.sessionStorage.getItem('token');
+                var userAuthenticated = $window.localStorage.getItem('token');
                 if (!userAuthenticated && next.access.loginRequired) {
                     $location.path('/login');
                 } else if (userAuthenticated && next.access.logoutRequired) {
@@ -18,9 +18,10 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
         $httpProvider.interceptors.push(function ($window, $q) {
             return {
                 request: function (config) {
-                    config.headers = config.headers || {};
-                    if ($window.sessionStorage.getItem('token')) {
-                        config.headers['X-Auth-Token'] = $window.sessionStorage.getItem('token');
+                    var token = $window.localStorage.getItem('token');
+                    if (token) {
+                        config.headers = config.headers || {};
+                        config.headers['X-Auth-Token'] = token;
                     }
                     return config;
                 },
@@ -71,7 +72,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
             user.password = CryptoJS.SHA256($scope.password).toString(CryptoJS.enc.Hex);
             $http.post(APIConfig.authentication, user)
                 .success(function (data) {
-                    $window.sessionStorage.setItem('token', data.token);
+                    $window.localStorage.setItem('token', data.token);
                     $location.path('/');
                 })
                 .error(function (data) {
@@ -88,7 +89,7 @@ angular.module('todoApp', ['ngRoute', 'ngResource', 'validation.match'])
             user.password = CryptoJS.SHA256($scope.password).toString(CryptoJS.enc.Hex);
             $http.post(APIConfig.user, user)
                 .success(function (data) {
-                    $window.sessionStorage.setItem('token', data.token);
+                    $window.localStorage.setItem('token', data.token);
                     $location.path('/');
                 })
                 .error(function (data) {
@@ -182,6 +183,6 @@ function getErrorMessage(response, messagePrefix) {
 }
 
 function logout() {
-    window.sessionStorage.removeItem('token');
+    window.localStorage.removeItem('token');
     window.location.href = '/';
 }
