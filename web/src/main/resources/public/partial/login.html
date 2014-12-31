@@ -16,12 +16,15 @@
                 <label for="login" class="col-sm-4 control-label">Login</label>
 
                 <div class="col-sm-4">
-                    <input type="login" name="login" id="login" class="form-control" ng-model="user.login"
-                           placeholder="Login"
-                           ng-minlength="4" required>
+                    <input type="login" name="login" id="login" class="form-control" placeholder="Login"
+                           ng-model="user.login"
+                           ng-minlength="4"
+                           pattern="^[A-Za-z0-9]*$"
+                           required>
                     <span class="help-block" ng-show="loginForm.login.$touched">
                         <span ng-show="loginForm.login.$error.required">Login is required</span>
                         <span ng-show="loginForm.login.$error.minlength">Login should have min 4 signs</span>
+                        <span ng-show="loginForm.login.$error.pattern">Login should contain only alphanumerics</span>
                     </span></div>
             </div>
 
@@ -30,11 +33,15 @@
                 <label for="password" class="col-sm-4 control-label">Password</label>
 
                 <div class="col-sm-4">
-                    <input type="password" name="password" id="password" class="form-control" data-ng-model="password"
-                           placeholder="Password" ng-minlength="6" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                           data-ng-model="password"
+                           ng-minlength="6"
+                           pattern="^[A-Za-z0-9]*$"
+                           required>
                     <span class="help-block" ng-show="loginForm.password.$touched">
                         <span ng-show="loginForm.password.$error.required">Password is required</span>
                         <span ng-show="loginForm.password.$error.minlength">Password should have min 6 signs</span>
+                        <span ng-show="loginForm.password.$error.pattern">Password should contain only alphanumerics</span>
                     </span></div>
             </div>
 

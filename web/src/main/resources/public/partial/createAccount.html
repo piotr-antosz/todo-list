@@ -17,12 +17,15 @@
                 <label for="login" class="col-sm-4 control-label">Login</label>
 
                 <div class="col-sm-4">
-                    <input type="login" name="login" id="login" class="form-control" ng-model="user.login"
-                           placeholder="Login"
-                           ng-minlength="4" required>
+                    <input type="login" name="login" id="login" class="form-control" placeholder="Login"
+                           ng-model="user.login"
+                           ng-minlength="4"
+                           pattern="^[A-Za-z0-9]*$"
+                           required>
                 <span class="help-block" ng-show="accountForm.login.$touched">
                     <span ng-show="accountForm.login.$error.required">Login is required</span>
                     <span ng-show="accountForm.login.$error.minlength">Login should have min 4 signs</span>
+                    <span ng-show="accountForm.login.$error.pattern">Login should contain only alphanumerics</span>
                 </span>
                 </div>
             </div>
@@ -63,11 +66,15 @@
                 <label for="password" class="col-sm-4 control-label">Password</label>
 
                 <div class="col-sm-4">
-                    <input type="password" name="password" id="password" class="form-control" ng-model="password"
-                           placeholder="Password" ng-minlength="6" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                           ng-model="password"
+                           ng-minlength="6"
+                           pattern="^[A-Za-z0-9]*$"
+                           required>
                 <span class="help-block" ng-show="accountForm.password.$touched">
                     <span ng-show="accountForm.password.$error.required">Password is required</span>
                     <span ng-show="accountForm.password.$error.minlength">Password should have min 6 signs</span>
+                    <span ng-show="accountForm.password.$error.pattern">Password should contain only alphanumerics</span>
                 </span>
                 </div>
             </div>
@@ -78,7 +85,10 @@
 
                 <div class="col-sm-4">
                     <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
-                           ng-model="confirmPassword" placeholder="Confirm password" required data-match="password">
+                           placeholder="Confirm password"
+                           ng-model="confirmPassword"
+                           data-match="password"
+                           required>
                 <span class="help-block" ng-show="accountForm.confirmPassword.$touched">
                     <span ng-show="accountForm.confirmPassword.$error.required">Confirm password is required</span>
                     <span ng-show="accountForm.confirmPassword.$error.match">Passwords must be the same</span>
