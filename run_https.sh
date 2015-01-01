@@ -8,6 +8,9 @@ NGINX=nginx #relative or absolute path
 NGINX_PREFIX=./nginx
 NGINX_CONFIG=conf/nginx_https.conf
 
+#logs configuration
+LOGS_PATH=./log/
+
 #ssl configuration
 SSL_KEY_STORE=./.keystore
 SSL_KEY_STORE_PASSWORD=changeit
@@ -34,11 +37,11 @@ NGINX_URL="https://localhost:8043/api/v1"
 ${NGINX} -p ${NGINX_PREFIX} -c ${NGINX_CONFIG}
 
 #run authentication service
-xterm -e "${JAVA} -jar ${AUTHENTICATION_SERVICE_JAR} --server.port=${AUTHENTICATION_SERVICE_PORT} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS}" &
+xterm -e "${JAVA} -jar ${AUTHENTICATION_SERVICE_JAR} --server.port=${AUTHENTICATION_SERVICE_PORT} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS} --logging.path=${LOGS_PATH}" &
 
 #run tasks service
-xterm -e "${JAVA} -jar ${TASKS_SERVICE_JAR} --server.port=${TASKS_SERVICE_PORT} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS}" &
+xterm -e "${JAVA} -jar ${TASKS_SERVICE_JAR} --server.port=${TASKS_SERVICE_PORT} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS} --logging.path=${LOGS_PATH}" &
 
 #run front server
-xterm -e "${JAVA} -jar ${WEB_SERVICE_JAR} --server.port=${WEB_PORT} --api.base.url=${NGINX_URL} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS}" &
+xterm -e "${JAVA} -jar ${WEB_SERVICE_JAR} --server.port=${WEB_PORT} --api.base.url=${NGINX_URL} --server.ssl.key-store=${SSL_KEY_STORE} --server.ssl.key-store-password=${SSL_KEY_STORE_PASSWORD} --server.ssl.key-password=${SSL_KEY_PASSWORD} --server.ssl.key-alias=${SSL_KEY_ALIAS} --logging.path=${LOGS_PATH}" &
 

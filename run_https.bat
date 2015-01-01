@@ -10,6 +10,9 @@ set NGINX=nginx.exe
 set NGINX_PREFIX=./nginx
 set NGINX_CONFIG=conf/nginx_https.conf
 
+rem logs configuration
+set LOGS_PATH=./log/
+
 rem ssl configuration
 set SSL_KEY_STORE=./.keystore
 set SSL_KEY_STORE_PASSWORD=changeit
@@ -38,13 +41,13 @@ rem run nginx server
 start %NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
 
 rem run authentication service
-start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%
+start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%  --logging.path=%LOGS_PATH%
 
 rem run tasks service
-start %JAVA% -jar %TASKS_SERVICE_JAR% --server.port=%TASKS_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%
+start %JAVA% -jar %TASKS_SERVICE_JAR% --server.port=%TASKS_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%  --logging.path=%LOGS_PATH%
 
 rem run front server
-start %JAVA% -jar %WEB_SERVICE_JAR% --server.port=%WEB_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS% --api.base.url=%NGINX_URL%
+start %JAVA% -jar %WEB_SERVICE_JAR% --server.port=%WEB_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS% --api.base.url=%NGINX_URL%  --logging.path=%LOGS_PATH%
 
 @echo off
 
