@@ -24,6 +24,8 @@ extracted from the JDK download.
 
 
 ## Running app
+Application require running 4 components: web server, authentication service, tasks service and nginx reverse proxy server.
+
 In the instructions below all scripts are invoked from the root of the source tree.
 
 ### Prerequisites
@@ -76,6 +78,23 @@ Open [http://localhost:8080](http://localhost:8080) for http or [https://localho
 In the instructions below all scripts are invoked from the root of the source tree.
 
 Close all opened console windows and run `./stop_nginx_http.sh` or `./stop_nginx_http.bat` for http communication. For https there are `./stop_nginx_https.sh` or `./stop_nginx_https.bat`.
+
+## Logs
+In the instructions all locations are started from the root of the source tree.
+
+###Nginx logs
+`./nginx/logs/access.log`
+
+`./nginx/logs/error.log`
+
+###Authentication service
+`./log/authenticationService.log`
+
+###Tasks service
+`./log/tasksService.log`
+
+###Web server
+`./log/web.log`
 
 [Maven]: http://maven.apache.org
 [Git]: http://help.github.com/set-up-git-redirect
