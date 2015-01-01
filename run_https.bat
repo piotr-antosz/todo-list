@@ -35,7 +35,7 @@ set NGINX_URL=https://localhost:8043/api/v1
 @echo on
 
 rem run nginx server
-%NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
+start %NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
 
 rem run authentication service
 start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%
