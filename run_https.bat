@@ -17,11 +17,11 @@ set SSL_KEY_PASSWORD=changeit
 set SSL_KEY_ALIAS=tomcat
 
 rem authentication service configuration
-set AUTHENTICATION_SERVICE_PORT=8001
+set AUTHENTICATION_SERVICE_PORT=8041
 set AUTHENTICATION_SERVICE_JAR=./services/authentication/target/service-authentication-1.0-SNAPSHOT.jar
 
 rem tasks service configuration
-set TASKS_SERVICE_PORT=8002
+set TASKS_SERVICE_PORT=8042
 set TASKS_SERVICE_JAR=./services/tasks/target/service-tasks-1.0-SNAPSHOT.jar
 
 rem front server configuration
