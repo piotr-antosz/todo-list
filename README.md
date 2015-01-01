@@ -36,7 +36,7 @@ Be sure that your `PATH` environment variable points to the `nginx` or `nginx.ex
 
 * download and extract [nginx 1.7.9.1 Gryphon.zip][nginx 1.7.9.1 Gryphon] (it already contains HttpLuaModule and HttpHeadersMoreModule)
 * dwonload [lua files][], extract and copy `cjson.dll` to nginx installation dir (just place it next to `nginx.exe`)
-* update `PATH` environment variable to access `nginx.exe` from anywhere 
+* update `Path` environment variable to access `nginx.exe` from anywhere 
 
 ##### Example nginx installation on Ubuntu 14.04
 
@@ -55,6 +55,8 @@ Be sure that your `PATH` environment variable points to the `nginx` or `nginx.ex
 
 `sudo make install`
 
+`export PATH=/usr/local/openresty:$PATH`
+
 ### Start app
 
 In the instructions below all scripts are invoked from the root of the source tree.
@@ -63,11 +65,11 @@ In the instructions below all scripts are invoked from the root of the source tr
 
 Run `./run_http.sh` or `./run_http.bat` for http communication. If you want to use https, start `./run_https.sh` or `./run_https.bat`
 
-> **Note:** because of self signed SSL certificate, some browsers have problems with making ajax calls to not verified https endpoints. Latest Chrome is working fine after accepting untrusted certificate during first web page opening. Firefox needs additionally to accept nginx's certificate by going to [https://localhost:8043]()  
+> **Note:** because of self signed SSL certificate, some browsers have problems with making ajax calls to not verified https endpoints. Latest Chrome is working fine after accepting untrusted certificate during first web page opening. Firefox needs additionally to accept nginx's certificate by going to [https://localhost:8043](https://localhost:8043)  
 
 ### Browser
 
-Open [http://localhost:8080]() for http or [https://localhost:8443]() for https.
+Open [http://localhost:8080](http://localhost:8080) for http or [https://localhost:8443](https://localhost:8443) for https.
 
 ### Stop app
 
