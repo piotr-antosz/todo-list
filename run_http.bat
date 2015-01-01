@@ -32,7 +32,7 @@ set NGINX_URL=http://localhost:8003/api/v1
 @echo on
 
 rem run nginx server
-rem start %NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
+start %NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
 
 rem run authentication service
 start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT% --logging.path=%LOGS_PATH%
