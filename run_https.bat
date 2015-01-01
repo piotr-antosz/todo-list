@@ -6,7 +6,7 @@ rem path to java
 set JAVA=java
 
 rem nginx configuration
-set NGINX=nginx
+set NGINX=nginx.exe
 set NGINX_PREFIX=./nginx
 set NGINX_CONFIG=conf/nginx_https.conf
 
