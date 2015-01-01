@@ -5,6 +5,11 @@ setlocal
 rem path to java
 set JAVA=java
 
+rem nginx configuration
+set NGINX=nginx
+set NGINX_PREFIX=./nginx
+set NGINX_CONFIG=conf/nginx_https.conf
+
 rem ssl configuration
 set SSL_KEY_STORE=./.keystore
 set SSL_KEY_STORE_PASSWORD=changeit
@@ -20,11 +25,17 @@ set TASKS_SERVICE_PORT=8002
 set TASKS_SERVICE_JAR=./services/tasks/target/service-tasks-1.0-SNAPSHOT.jar
 
 rem front server configuration
-set WEB_PORT=443
+set WEB_PORT=8443
 set WEB_SERVICE_JAR=./web/target/web-tasks-1.0-SNAPSHOT.jar
-set NGINX_URL=https://localhost:8443/api/v1
+set NGINX_URL=https://localhost:8043/api/v1
+
+
+
 
 @echo on
+
+rem run nginx server
+%NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
 
 rem run authentication service
 start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT% --server.ssl.key-store=%SSL_KEY_STORE% --server.ssl.key-store-password=%SSL_KEY_STORE_PASSWORD% --server.ssl.key-password=%SSL_KEY_PASSWORD% --server.ssl.key-alias=%SSL_KEY_ALIAS%

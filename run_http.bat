@@ -2,8 +2,13 @@
 
 setlocal
 
-rem path to java
+rem path to java, relative or absolute path
 set JAVA=java
+
+rem nginx configuration
+set NGINX=nginx
+set NGINX_PREFIX=./nginx
+set NGINX_CONFIG=conf/nginx_http.conf
 
 rem authentication service configuration
 set AUTHENTICATION_SERVICE_PORT=8001
@@ -14,11 +19,17 @@ set TASKS_SERVICE_PORT=8002
 set TASKS_SERVICE_JAR=./services/tasks/target/service-tasks-1.0-SNAPSHOT.jar
 
 rem front server configuration
-set WEB_PORT=80
+set WEB_PORT=8080
 set WEB_SERVICE_JAR=./web/target/web-tasks-1.0-SNAPSHOT.jar
-set NGINX_URL=http://localhost:8080/api/v1
+set NGINX_URL=http://localhost:8003/api/v1
+
+
+
 
 @echo on
+
+rem run nginx server
+%NGINX% -p %NGINX_PREFIX% -c %NGINX_CONFIG%
 
 rem run authentication service
 start %JAVA% -jar %AUTHENTICATION_SERVICE_JAR% --server.port=%AUTHENTICATION_SERVICE_PORT%
