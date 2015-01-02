@@ -89,14 +89,42 @@ public class AuthenticationIT {
     }
 
     @Test
-    public void shouldFailCreatingUserWhenLoginIncorrect() throws Exception {
+    public void shouldFailCreatingUserWhenLoginTooShort() throws Exception {
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .content(new NewUserData("lg", "email@domain.com", "ed02457b5c41d964dbd2f2a609d63fe1bb7528dbe55e1abf5b52c249cd735797"))
-                .when()
+        .when()
                 .post("/user")
-                .then()
+        .then()
+                .statusCode(422)
+                .contentType(ContentType.JSON)
+                .body("errors", not(empty()));
+    }
+
+    @Test
+    public void shouldFailCreatingUserWhenLoginContainsNonAlphanumerics() throws Exception {
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new NewUserData("lg dewfew efwe%#&$#", "email@domain.com", "ed02457b5c41d964dbd2f2a609d63fe1bb7528dbe55e1abf5b52c249cd735797"))
+        .when()
+                .post("/user")
+        .then()
+                .statusCode(422)
+                .contentType(ContentType.JSON)
+                .body("errors", not(empty()));
+    }
+
+    @Test
+    public void shouldFailCreatingUserWhenPasswordContainsNonHexCharacters() throws Exception {
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new NewUserData("lg dewfew efwe", "email@domain.com", "ed02457b5c41d964dbd2f2a609d63fe1bb7_zz&^(% jhgkgkyfititdtiytd  du ytdu"))
+        .when()
+                .post("/user")
+        .then()
                 .statusCode(422)
                 .contentType(ContentType.JSON)
                 .body("errors", not(empty()));
