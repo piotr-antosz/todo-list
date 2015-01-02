@@ -122,13 +122,15 @@ Be sure that your `PATH` environment variable points to the `nginx` or `nginx.ex
 
 `sudo make install`
 
-`export PATH=/usr/local/openresty:$PATH`
+`export PATH=/usr/local/openresty/nginx/sbin:$PATH`
 
 ### Start app
 
 In the instructions below all scripts are invoked from the root of the source tree.
 
 > **Note:** default configuration assumes that some ports are not being used by system. For http scenario they are `8001`, `8002`, `8003` and `8080`. For https scenario they are `8041`, `8042`, `8043` and `8443`.
+
+> **Note:** default configuration sets `localhost` as an endpoint for js to make ajax calls. If you want to test app from other device than localhost, change `NGINX_URL` property in run scripts to your real IP address.
 
 Run `./run_http.sh` or `run_http.bat` for http communication. If you want to use https, start `./run_https.sh` or `run_https.bat`
 
