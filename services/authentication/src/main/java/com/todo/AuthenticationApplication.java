@@ -1,8 +1,10 @@
 package com.todo;
 
+import com.todo.service.DataLoader;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class AuthenticationApplication extends SpringBootServletInitializer {
@@ -12,8 +14,9 @@ public class AuthenticationApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        new AuthenticationApplication()
-                .configure(new SpringApplicationBuilder(AuthenticationApplication.class))
-                .run(args);
+        AuthenticationApplication app = new AuthenticationApplication();
+        SpringApplicationBuilder appBuilder = app.configure(new SpringApplicationBuilder(AuthenticationApplication.class));
+        ConfigurableApplicationContext appContext = appBuilder.run(args);
+        appContext.getBean(DataLoader.class).loadTestData();
     }
 }

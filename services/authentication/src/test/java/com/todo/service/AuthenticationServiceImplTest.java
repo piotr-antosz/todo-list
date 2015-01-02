@@ -40,7 +40,8 @@ public class AuthenticationServiceImplTest {
         String login = "login";
         String password = "password";
         String tokenValue = "token";
-        given(userRepository.findByLoginAndPassword(login, password)).willReturn(user);
+        given(userRepository.findByLogin(login)).willReturn(user);
+        given(user.getPassword()).willReturn(password);
         given(tokenRepository.saveAndFlush(any(Token.class))).willReturn(token);
         given(token.getValue()).willReturn(tokenValue);
 
@@ -49,7 +50,28 @@ public class AuthenticationServiceImplTest {
 
         //then
         assertThat(result, equalTo(tokenValue));
-        verify(userRepository).findByLoginAndPassword(login, password);
+        verify(userRepository).findByLogin(login);
+        verify(tokenRepository).saveAndFlush(any(Token.class));
+    }
+
+    @Test
+    public void shouldCreateTokenForPasswordIgnoringCase() {
+        //given
+        String login = "login";
+        String password = "password";
+        String passwordUpper = "PASSWORD";
+        String tokenValue = "token";
+        given(userRepository.findByLogin(login)).willReturn(user);
+        given(user.getPassword()).willReturn(password);
+        given(tokenRepository.saveAndFlush(any(Token.class))).willReturn(token);
+        given(token.getValue()).willReturn(tokenValue);
+
+        //when
+        String result = service.createToken(login, passwordUpper);
+
+        //then
+        assertThat(result, equalTo(tokenValue));
+        verify(userRepository).findByLogin(login);
         verify(tokenRepository).saveAndFlush(any(Token.class));
     }
 
@@ -58,7 +80,7 @@ public class AuthenticationServiceImplTest {
         //given
         String login = "login";
         String password = "password";
-        given(userRepository.findByLoginAndPassword(login, password)).willReturn(null);
+        given(userRepository.findByLogin(login)).willReturn(null);
 
         //when
         service.createToken(login, password);

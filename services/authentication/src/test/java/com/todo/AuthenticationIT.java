@@ -191,6 +191,31 @@ public class AuthenticationIT {
     }
 
     @Test
+    public void shouldLoginIgnoringPasswordCase() throws Exception {
+        //create account
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new NewUserData("loginLongEnough", "email@domain.com", "ed02457b5c41d964dbd2f2a609d63fe1bb7528dbe55e1abf5b52c249cd735797"))
+        .when()
+                .post("/user")
+        .then()
+                .statusCode(200)
+                .body("token", not(isEmptyString()));
+
+        //login
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .content(new LoginData("loginLongEnough", "ED02457B5C41D964DBD2F2A609D63FE1BB7528DBE55E1ABF5B52C249CD735797"))
+        .when()
+                .post("/authentication/login")
+        .then()
+                .statusCode(200)
+                .body("token", not(isEmptyString()));
+    }
+
+    @Test
     public void shouldFailLoggingWhenNoDataSent() throws Exception {
         given()
                 .accept(ContentType.JSON)
