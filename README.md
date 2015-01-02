@@ -78,7 +78,7 @@ Be sure that your `JAVA_HOME` environment variable points to the `jdk` folder
 extracted from the JDK download.
 
 ### Check out sources
-`git clone git@github.com:piotr-antosz/todo-list.git`
+`git clone https://github.com/piotr-antosz/todo-list.git`
 
 ### Build
 `mvn clean install`
