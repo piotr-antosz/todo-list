@@ -166,7 +166,7 @@ In the instructions all locations are started from the root of the source tree.
 [JDK download]: http://www.oracle.com/technetwork/java/javase/downloads
 [Maven download]: http://maven.apache.org/download.cgi
 [Nginx]: http://wiki.nginx.org/Install
-[HttpLuaModule]: http://wiki.nginx.org/Install
+[HttpLuaModule]: http://wiki.nginx.org/HttpLuaModule#Installation
 [CJSON]: http://www.kyne.com.au/~mark/software/lua-cjson-manual.html
 [HttpHeadersMoreModule]: http://wiki.nginx.org/HttpHeadersMoreModule#Installation
 [nginx 1.7.9.1 Gryphon]: http://nginx-win.ecsds.eu/download/nginx%201.7.9.1%20Gryphon.zip
