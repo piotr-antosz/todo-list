@@ -89,7 +89,7 @@ extracted from the JDK download.
 
 
 ## Running app
-Application require running 4 components: web server, authentication service, tasks service and nginx reverse proxy server.
+Application require running 4 components: web server, authentication service, tasks service and nginx reverse proxy server. By default, authentication and tasks services use runtime hsqldb to store data. To use another data source, additional configuration is required.
 
 In the instructions below all scripts are invoked from the root of the source tree.
 
