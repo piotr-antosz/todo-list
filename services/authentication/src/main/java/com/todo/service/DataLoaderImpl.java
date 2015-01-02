@@ -21,7 +21,7 @@ public class DataLoaderImpl implements DataLoader {
         String login = "base";
         String email = "test.email@domain.com";
         if (userRepository.findByLogin(login) == null && userRepository.findByEmail(email) == null) {
-            userRepository.saveAndFlush(new User(login, email, "06D1D5A2B5109E19F6A4EE42EB3B2A311E7CC584236B70B9638E30C4DDC38B3C"));
+            userRepository.saveAndFlush(new User(login, email, "6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090"));
             LOG.info("Test account '{}' created. Log in with password '{}'", login, "abc123");
         } else {
             LOG.info("Adding test account '{}'/'{}' skipped. Account with that login/email already exists", login, email);
