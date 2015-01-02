@@ -1,6 +1,24 @@
 ## TODO list
 TODO list web app
 
+## Architecture
+App consists of 4 components:
+
+* web server (HTML5 UI)
+* authentication service (sign up/sign in, token authentication)
+* tasks service (CRUD operations on tasks)
+* reverse proxy (interface UI to both business services)
+
+![architecture](https://raw.githubusercontent.com/piotr-antosz/todo-list/master/architecture.png "architecture")
+
+### Authentication
+details
+
+![architecture](https://raw.githubusercontent.com/piotr-antosz/todo-list/master/authentication.png "architecture")
+
+## Technology stack
+Details
+
 ## Building from Source
 App uses a [Maven][]-based build system. In the instructions
 below, `mvn` is invoked from the root of the source tree.
