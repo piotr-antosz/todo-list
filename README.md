@@ -12,12 +12,59 @@ App consists of 4 components:
 ![architecture](https://raw.githubusercontent.com/piotr-antosz/todo-list/master/architecture.png "architecture")
 
 ### Authentication
-details
+Authentication is token based. Token is kept in browser local storage. Below some examples of app communication with authentication flow. 
 
-![architecture](https://raw.githubusercontent.com/piotr-antosz/todo-list/master/authentication.png "architecture")
+![authentication](https://raw.githubusercontent.com/piotr-antosz/todo-list/master/authentication.png "authentication")
 
 ## Technology stack
-Details
+###Web server
+HTML5 single page app with responsive UI styled for many different devices.
+
+* Spring Boot
+	* easy to deploy, jar with all dependencies to start server
+	* embedded tomcat
+	* ready for configuring https communication
+	* used to serve dynamic resources based on app configuration (API endpoints)
+* AngularJS
+	* dynamic view, data binding
+	* templates
+	* embedded form validators
+	* routing (easy to implement site access regarding actual login state)
+	* support for making ajax calls
+	* possibility to intercept http calls
+* Bootsrap CSS/JS
+	* consistent styles and behaviors for most browsers and different screen sizes 
+* CryptoJS 
+	* password hash
+
+###Reverse Proxy
+* Nginx
+	* authentication in one place, no need to implement it in every business service
+	* cross-origin resource sharing implementation
+	* ready for configuring https communication
+	* possible place to implement load balancing
+	* possible place to implement some cache strategy	
+
+###Authentication and Tasks services
+* Spring Boot
+	* easy to deploy, jar with all dependencies to start server
+	* embedded tomcat
+	* ready for configuring https communication
+	* embedded JPA support
+	* embedded test tools support
+* Jersey
+	* reference JAX-RS implementation
+	* bean validation support	
+* REST Assured
+	* convenient way to write integration tests for REST APIs
+
+## Possible enhancements
+Things not implemented by now, but possible to add in future:
+
+* login, password restrictions - now they are very simple
+* static web resources minification, bundle packages to improve page load time
+* security constraints according to OWASP
+* better CORS implementation, now it allows requests from any origin
 
 ## Building from Source
 App uses a [Maven][]-based build system. In the instructions
