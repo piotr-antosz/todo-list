@@ -2,3 +2,8 @@ language: java
   
 jdk:
 	- oraclejdk7
+	
+script:
+   - mvn clean cobertura:cobertura
+   - mvn test	
+   - mvn failsafe:integration-test	
