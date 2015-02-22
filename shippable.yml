@@ -1,4 +1,5 @@
-language java
+language:
+	java
   
-jdk
- - oraclejdk7
+jdk:
+	- oraclejdk7
